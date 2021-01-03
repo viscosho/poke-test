@@ -13,16 +13,16 @@ const AllPoke = () => {
 		fetch(url)
 			.then((res) => res.json())
 			.then((json) => {
-				console.log(json.results[0].name);
 				//json.results.forEach((pokemon) => {
 				fetch(json.results[pokemonId].url)
 					.then((res) => res.json())
 					.then((json) => {
 						//console.log(json);
 						let pokemon = {
-							id: json.id * 1,
+							id: json.id,
 							name: json.name,
 							avatar: json.sprites.front_default,
+							type: json.types[0].type.name,
 						};
 						//console.log(pokemon);
 						setPokemons((pokemons) => [pokemon]);
@@ -50,7 +50,7 @@ const AllPoke = () => {
 				Next Pokemon
 			</Button>
 			{pokemons.map((pokemon) => (
-				<Pokemon key={pokemon.id} name={pokemon.name} avatar={pokemon.avatar} />
+				<Pokemon key={pokemon.id} name={pokemon.name} avatar={pokemon.avatar} type={pokemon.type} />
 			))}
 		</Container>
 	);
